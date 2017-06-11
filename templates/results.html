@@ -10,7 +10,6 @@
     <h2>Results</h2>
     <table class="table table-hover">
         <thead>
-
         <tr>
             <th>Candidate</th>
             <th>Support</th>
@@ -30,7 +29,7 @@
 <div class="container">
   <h1>Abstract</h1>
     {% for info in abstract["results"]["bindings"]%}
-    <h2><a href="{{info['Artist']['value']}}">{{artist_name}}</a></h2>
+    <h2><a href="{{info['Artist']['value']}}" target="_blank">{{artist_name}}</a></h2>
   <blockquote>
     <p>{{info["Abstract"]["value"]}} </p>
     <footer>From Wikipedia</footer>
