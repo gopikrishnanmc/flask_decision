@@ -1,0 +1,41 @@
+{% extends "base.html"%}
+
+
+{%block title%}Artist-results{%endblock%}
+
+{% block content%}
+
+
+<div class="container">
+    <h2>Results</h2>
+    <table class="table table-hover">
+        <thead>
+
+        <tr>
+            <th>Candidate</th>
+            <th>Support</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in results["results"]["bindings"]%}
+        <tr>
+            <td>{{result["Candidate"]["value"]}}</td>
+            <td>{{result["CandidateSupport"]["value"]}}</td>
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+  <h1>Abstract</h1>
+    {% for info in abstract["results"]["bindings"]%}
+    <h2><a href="{{info['Artist']['value']}}">{{artist_name}}</a></h2>
+  <blockquote>
+    <p>{{info["Abstract"]["value"]}} </p>
+    <footer>From Wikipedia</footer>
+  </blockquote>
+    {%endfor%}
+</div>
+
+{%endblock%}

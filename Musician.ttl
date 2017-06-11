@@ -1,0 +1,225 @@
+@prefix : <http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579> a owl:Ontology .
+# 
+# 
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
+# 
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#candidateArgumentProperties
+
+:candidateArgumentProperties a owl:ObjectProperty .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#candidateHasNegatingArgument
+
+:candidateHasNegatingArgument a owl:ObjectProperty ;
+	rdfs:subPropertyOf :candidateArgumentProperties .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#candidateHasSupportingArgument
+
+:candidateHasSupportingArgument a owl:ObjectProperty ;
+	rdfs:subPropertyOf :candidateArgumentProperties .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#hasArgument
+
+:hasArgument a owl:ObjectProperty .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#hasArgumentStatus
+
+:hasArgumentStatus a owl:ObjectProperty .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#hasArtist
+
+:hasArtist a owl:ObjectProperty .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#hasCD
+
+:hasCD a owl:ObjectProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+# 
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#hasCandidateSupport
+
+:hasCandidateSupport a owl:DatatypeProperty .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#hasName
+
+:hasName a owl:DatatypeProperty .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#hasWeight
+
+:hasWeight a owl:DatatypeProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Argument
+
+:Argument a owl:Class .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#ArgumentAbsent
+
+:ArgumentAbsent a owl:Class ;
+	rdfs:subClassOf :ArgumentStatus .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#ArgumentPresent
+
+:ArgumentPresent a owl:Class ;
+	rdfs:subClassOf :ArgumentStatus .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#ArgumentStatus
+
+:ArgumentStatus a owl:Class .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Artist
+
+:Artist a owl:Class .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#CD
+
+:CD a owl:Class .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Candidate
+
+:Candidate a owl:Class .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#ClassicalMusician
+
+:ClassicalMusician a owl:Class ;
+	rdfs:subClassOf :Musician .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#DontHearMusic
+
+:DontHearMusic a owl:Class ;
+	rdfs:subClassOf :Candidate .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#HearMusic
+
+:HearMusic a owl:Class ;
+	rdfs:subClassOf :Candidate .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Musician
+
+:Musician a owl:Class ;
+	rdfs:subClassOf :Argument .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#NonMusician
+
+:NonMusician a owl:Class ;
+	rdfs:subClassOf :Argument .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#User
+
+:User a owl:Class .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Individuals
+# #
+# #################################################################
+# 
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#ArgumentAbsent
+
+:ArgumentAbsent a owl:NamedIndividual , :ArgumentAbsent .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#ArgumentPresent
+
+:ArgumentPresent a owl:NamedIndividual , :ArgumentPresent .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Artist_1
+
+:Artist_1 a owl:NamedIndividual , :Artist .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#CD_1
+
+:CD_1 a owl:NamedIndividual , :CD ;
+	:hasArtist :Artist_1 .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Classical_musician_Minus_2
+
+:Classical_musician_Minus_2 a owl:NamedIndividual , :ClassicalMusician ;
+	:hasWeight "-2"^^xsd:integer .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Classical_musician_Plus_2
+
+:Classical_musician_Plus_2 a owl:NamedIndividual , :ClassicalMusician ;
+	:hasWeight "2"^^xsd:integer .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#DontHearMusic
+
+:DontHearMusic a owl:NamedIndividual , :DontHearMusic ;
+	:candidateHasNegatingArgument :Classical_musician_Minus_2 , :Musician_Minus_1 ;
+	:candidateHasSupportingArgument :Non_Musician_Plus_1 .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#HearMusic
+
+:HearMusic a owl:NamedIndividual , :HearMusic ;
+	:candidateHasNegatingArgument :Non_Musician_Minus_1 ;
+	:candidateHasSupportingArgument :Classical_musician_Plus_2 , :Musician_Plus_1 .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Musician_Minus_1
+
+:Musician_Minus_1 a owl:NamedIndividual , :Musician ;
+	:hasWeight "-1"^^xsd:integer .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Musician_Plus_1
+
+:Musician_Plus_1 a owl:NamedIndividual , :Musician ;
+	:hasWeight "1"^^xsd:integer .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Non_Musician_Minus_1
+
+:Non_Musician_Minus_1 a owl:NamedIndividual , :NonMusician ;
+	:hasWeight "-1"^^xsd:integer .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#Non_Musician_Plus_1
+
+:Non_Musician_Plus_1 a owl:NamedIndividual , :NonMusician ;
+	:hasWeight "1"^^xsd:integer .
+# 
+# http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#User
+
+:User a owl:NamedIndividual , :User ;
+	:hasCD :CD_1 .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Annotations
+# #
+# #################################################################
+# 
+# 
+
+:DontHearMusic rdfs:label "Don't Hear Music" .
+# 
+
+:HearMusic rdfs:label "Hear Music" .
+# 
+# Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi

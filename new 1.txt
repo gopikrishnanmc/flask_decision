@@ -1,0 +1,56 @@
+PREFIX rp: <http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+##############
+INSERT {GRAPH <http://example/Artist> {?Artist1 rdfs:label "Wolfgang Amadeus Mozart"@en}}
+WHERE{
+?Artist1 rdf:type rp:Artist
+}
+##############
+CLEAR GRAPH <http://example/Artist>;
+##############
+CONSTRUCT {?Argument rp:hasArgumentStatus rp:ArgumentPresent}
+#SELECT DISTINCT ?name ?Artist2 ?Artist1
+WHERE{
+  ?Argument a rp:Musician.
+  ?User rp:hasCD ?x.
+  ?x rp:hasArtist ?Artist1.
+  {GRAPH <http://example/Artist> {?Artist1 rdfs:label ?name}}
+
+ SERVICE<http://dbpedia.org/sparql>
+ {?Artist2 rdf:type dbo:MusicalArtist.
+  ?Artist2 rdfs:label ?name
+  }
+}
+#############
+CONSTRUCT {?Argument rp:hasArgumentStatus rp:ArgumentPresent}
+#SELECT DISTINCT  ?Artist1 ?Artist2 ?name
+WHERE{
+  ?Argument a rp:ClassicalMusician.
+  ?User rp:hasCD ?x.
+  ?x rp:hasArtist ?Artist1.
+
+  {GRAPH <http://example/Artist> {?Artist1 rdfs:label ?name}}
+
+ SERVICE<http://dbpedia.org/sparql>
+ {?Artist2 dct:subject dbc:18th-century_classical_composers.
+  ?Artist2 rdfs:label ?name
+  }
+}
+#############
+CONSTRUCT {?Candidate rp:hasCandidateSupport ?CandidateSupport} 
+WHERE
+{ SELECT (SUM(?Weight) as ?CandidateSupport) ?Candidate
+{
+ 		?Candidate ?property ?Argument.
+        ?property rdfs:subPropertyOf rp:candidateArgumentProperties.
+        ?Argument rp:hasWeight ?Weight.
+        ?Argument rp:hasArgumentStatus rp:ArgumentPresent.
+    }
+    GROUP BY ?Candidate
+}
+##############
+http://dbpedia.org/page/Wolfgang_Amadeus_Mozart
+http://dbpedia.org/page/George_Harrison
