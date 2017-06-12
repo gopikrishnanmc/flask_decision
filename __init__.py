@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import InputRequired
-from sparql_db import SPARQL_Query
+from sparql_db import SPARQL_Query, FHIR_query
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -26,6 +26,15 @@ def index():
         abstract = q.artist_abstract(str(form.name.data))
         return render_template('results.html', results=results, abstract=abstract, artist_name=artist_name)
     return render_template('form.html', form=form)
+
+
+@app.route('/fhir/')
+def fhir():
+    q = FHIR_query()
+    results_1 = q.patient_data_query()
+    results_2 = q.patient_data_query_2()
+    results_3 = q.patient_data_query_3()
+    return render_template('fhir.html', results_1=results_1, results_2=results_2, results_3=results_3)
 
 
 if __name__ == '__main__':

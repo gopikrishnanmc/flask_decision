@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+
+{%block title%}Artist-results{%endblock%}
+
+{% block content%}
+
+<div class="container">
+    <h1>Patient Data</h1>
+    {% for result in results_1["results"]["bindings"]%}
+
+    {{result["div"]["value"] | safe}}
+
+    {%endfor%}
+<hr>
+    <h1>Superclass of Hives in SNOMED</h1>
+    {% for result in results_2["results"]["bindings"]%}
+
+    <h3><a href="{{result['y']['value']}}" target="_blank">{{result["label1"]["value"]}}</a></h3>
+
+    {%endfor%}
+
+    <h1>Subclass of Hives in SNOMED</h1>
+    {% for result in results_3["results"]["bindings"]%}
+
+    <h3><a href="{{result['x']['value']}}" target="_blank">{{result["label2"]["value"]}}</a></h3>
+
+    {%endfor%}
+
+</div>
+
+
+{%endblock%}

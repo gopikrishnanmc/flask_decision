@@ -13,6 +13,10 @@ PREFIX dbp: <http://dbpedia.org/property/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dbc: <http://dbpedia.org/resource/Category:>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX snomed-term: <http://purl.bioontology.org/ontology/SNOMEDCT/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX fhir: <http://hl7.org/fhir/>
 """
 
 clear_default_query = """CLEAR SILENT DEFAULT"""
@@ -100,6 +104,44 @@ queryString_5 = ns + """
     }}
 """
 
+queryString_6 = ns + """
+INSERT {?s rdf:type snomed-term:247472004}
+WHERE{
+?s fhir:Coding.code ?code.
+  ?s fhir:Coding.system ?system.
+  ?s rdf:type ?type.
+}
+
+"""
+
+queryString_7 = ns + """
+SELECT ?div
+WHERE{
+
+?s fhir:Narrative.div ?div
+}
+
+"""
+
+queryString_8 = ns + """
+SELECT DISTINCT ?y ?label1
+WHERE{
+?s rdf:type ?type.
+SERVICE <http://sparql.bioontology.org/sparql?apikey=179ba070-35eb-4bbd-a33a-e8d4f5686cf9>{
+    ?type rdfs:subClassOf ?y.
+    ?y skos:prefLabel  ?label1.
+  }}
+"""
+
+queryString_9 = ns + """
+SELECT DISTINCT ?x ?label2 
+WHERE{
+?s rdf:type ?type.
+SERVICE <http://sparql.bioontology.org/sparql?apikey=179ba070-35eb-4bbd-a33a-e8d4f5686cf9>{
+    ?x rdfs:subClassOf ?type.
+    ?x skos:prefLabel  ?label2.}
+}
+"""
 
 class SPARQL_Query:
     sparql_q = SPARQLWrapper("http://localhost:3030/HierarchicalModel/query")
@@ -164,18 +206,63 @@ class SPARQL_Query:
         self.insert_model_queries(queryString_3)
         self.insert_model_queries(queryString_4)
 
+class FHIR_query():
+    sparql_q = SPARQLWrapper("http://localhost:3030/FHIR/query")
+    sparql_u = SPARQLWrapper("http://localhost:3030/FHIR/update")
 
+    def __init__(self):
+        self.clear_graph(clear_default_query)
+        self.add_patient_data()
+        self.insert_queries(queryString_6)
 
-        # q = SPARQL_Query()
-        # #
-        # q.add_graph('Wolfgang Amadeus Mozart')
-        # q.do_all_inserts()
-        # results = q.decision_query()
-        #
-        # for result in results["results"]["bindings"]:
-        #             print(result["Candidate"]["value"] + " ------ " + result["CandidateSupport"]["value"])
+    def clear_graph(self, queryString):
+        self.queryString = queryString
+        FHIR_query.sparql_u.setQuery(self.queryString)
+        FHIR_query.sparql_u.method = 'POST'
+        FHIR_query.sparql_u.query()
 
-# q = SPARQL_Query()
-# results = q.artist_abstract('George Harrison')
+    def add_patient_data(self):
+        model = open("allergyintolerance-medication.ttl", "rb")
+        headers = {'Content-type': 'text/turtle'}
+        url = 'http://localhost:3030/FHIR/data'
+        r = requests.post(url, data=model, headers=headers)
+
+    def insert_queries(self, queryString):
+        self.queryString = queryString
+        FHIR_query.sparql_u.setQuery(self.queryString)
+        FHIR_query.sparql_u.method = 'POST'
+        FHIR_query.sparql_u.query()
+
+    def patient_data_query(self):
+        queryString = queryString_7
+        FHIR_query.sparql_q.setQuery(queryString)
+        FHIR_query.sparql_q.setReturnFormat(JSON)
+        results = FHIR_query.sparql_q.query().convert()
+        return results
+
+    def patient_data_query_2(self):
+        queryString = queryString_8
+        FHIR_query.sparql_q.setQuery(queryString)
+        FHIR_query.sparql_q.setReturnFormat(JSON)
+        results = FHIR_query.sparql_q.query().convert()
+        return results
+
+    def patient_data_query_3(self):
+        queryString = queryString_9
+        FHIR_query.sparql_q.setQuery(queryString)
+        FHIR_query.sparql_q.setReturnFormat(JSON)
+        results = FHIR_query.sparql_q.query().convert()
+        return results
+
+# q = FHIR_query()
+# results = q.patient_data_query()
+# results_2 = q.patient_data_query_2()
+# results_3 = q.patient_data_query_3()
 # for result in results["results"]["bindings"]:
-#     print(result["Abstract"]["value"] + " ------ " + result["Artist"]["value"])
+#     print(result["div"]["value"])
+#
+# for result in results_2["results"]["bindings"]:
+#     print(result["label1"]["value"])
+#
+# for result in results_3["results"]["bindings"]:
+#     print(result["label2"]["value"])

@@ -1,0 +1,35 @@
+PREFIX rp: <http://www.semanticweb.org/abjb788/ontologies/2017/5/untitled-ontology-579#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dbc: <http://dbpedia.org/resource/Category:>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX snomed-term: <http://purl.bioontology.org/ontology/SNOMEDCT/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+######################################################
+
+SELECT DISTINCT ?x ?label
+FROM <http://bioportal.bioontology.org/ontologies/SNOMEDCT>
+WHERE
+{
+  SERVICE <http://sparql.bioontology.org/sparql?apikey=179ba070-35eb-4bbd-a33a-e8d4f5686cf9>{
+    ?x rdfs:subClassOf snomed-term:247472004.
+    ?x skos:prefLabel  ?label.
+  }}
+  
+######################################################
+CONSTRUCT {?s rdf:type snomed-term:247472004}
+  #SELECT DISTINCT ?x ?label ?y ?label2 ?label3
+WHERE{
+?s fhir:Coding.code ?code.
+  ?s fhir:Coding.system ?system.
+  ?s rdf:type ?type.
+  ?system fhir:value ?value1.
+  ?code fhir:value ?value2
+  
+}
