@@ -1,0 +1,51 @@
+{% extends "base.html"%}
+
+{%block title%}FHIR-query results{%endblock%}
+
+{% block content%}
+<div class="row">
+    <div class="col-md-offset-3 col-md-6">
+        <h3>FHIR Results</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Patient demographics</h3>
+            </div>
+            <div class="panel-body">
+                Name: <a href="{{patientURL}}" target="_blank">{{name}}</a>
+            </div>
+            <div class="panel-body">
+                Gender: {{gender}}
+            </div>
+            <div class="panel-body">
+                Birth Date: {{birthdate}}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Patient diagnoses</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Diagnosis</th>
+                        <th>Severity</th>
+                        <th>Misc</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in diagnoses%}
+                    <tr>
+                        <td>{{item[0]}}</td>
+                        <td>{{item[1]}}</td>
+                        <td>--</td>
+                    </tr>
+                    {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

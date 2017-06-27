@@ -2,9 +2,10 @@
 
 {% block head %}
 {{super()}}
-    <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}">
+<link rel="icon" href="{{url_for('static', filename='favicon.ico')}}">
 {% endblock %}
 
+{%block body%}
 {% block navbar %}
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -22,8 +23,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{{url_for('index')}}">Music<span class="sr-only">(current)</span></a></li>
-                <li><a href="{{url_for('fhir')}}">FHIR</a></li>
+                <li><a href="{{url_for('index')}}">Music</a></li>
+                <li class="active"><a href="{{url_for('fhir_query')}}">FHIR</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -31,6 +32,31 @@
 {% endblock %}
 
 
-{% block content%}
+<div class="container">
+    {% with messages = get_flashed_messages()%}
+    {% if messages %}
+    {% for message in messages%}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif%}
+    {% endwith%}
+</div>
 
-{%endblock%}
+{% block content %}
+
+{% endblock %}
+
+{% endblock %}
+
+
+
+
+<!-- jQuery -->
+<script src="{{url_for('static', filename='js/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+

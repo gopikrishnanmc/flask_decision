@@ -7,13 +7,13 @@ fhir_condition = 'http://fhirtest.uhn.ca/baseDstu3/Condition?'
 
 
 class FHIRQueryByID:
-    def __init__(self, id):
-        self.id = id
+    def __init__(self, res_id):
+        self.res_id = res_id
         self.setPatientID()
 
     def setPatientID(self):
-        url_patient = fhir_patient + urllib.parse.urlencode({'_id': self.id})
-        url_condition = fhir_condition + urllib.parse.urlencode({'patient': self.id})
+        url_patient = fhir_patient + urllib.parse.urlencode({'_id': self.res_id})
+        url_condition = fhir_condition + urllib.parse.urlencode({'patient': self.res_id})
         self.json_data_patient = requests.get(url_patient).json()
         self.json_data_condition = requests.get(url_condition).json()
         self.resource_patient = self.json_data_patient['entry'][0]['resource']
@@ -41,7 +41,6 @@ class FHIRQueryByID:
         return patient_url
 
     def getAdminData(self):
-        # print('Resource Type: ' + self.getResourceType()[0])
         print(self.getPatientURL())
         print(self.getName())
         print(self.getBirthDate())
@@ -53,7 +52,7 @@ class FHIRQueryByID:
         for item in self.resource_condition:
             diagnosis_item = str(self.resource_condition[n]['resource']['code']['coding'][0]['display'])
             diagnosis_severity = str(self.resource_condition[n]['resource']['severity']['text'])
-            diagnosis = 'Diagnosis: ' + diagnosis_item + " , " + 'Severity: ' + diagnosis_severity
+            diagnosis = [diagnosis_item.capitalize(),diagnosis_severity.capitalize()]
             n += 1
             diagnoses.append(diagnosis)
 
@@ -61,11 +60,11 @@ class FHIRQueryByID:
 
     def getPatientCondition(self):
         for item in self.getConditionData():
-            print(str(item))
+            print(str(item[0]))
 
 
-x = FHIRQueryByID('157002')
-print('-------Patient admin data--------')
-x.getAdminData()
-print('-------Condition--------')
-x.getPatientCondition()
+# x = FHIRQueryByID('157002')
+# print('-------Patient admin data--------')
+# x.getAdminData()
+# print('-------Condition--------')
+# x.getPatientCondition()
