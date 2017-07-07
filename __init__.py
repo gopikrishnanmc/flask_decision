@@ -44,10 +44,8 @@ def fhir_query():
             patientURL = x.getPatientURL()
             diagnoses = x.getConditionData()
             return render_template('fhir_results.html', name=name, birthdate=birthdate, gender=gender, patientURL=patientURL, diagnoses=diagnoses)
-        else:
-            return render_template('FHIR_query.html')
+        return render_template('FHIR_query.html')
     except:
-        flash('Enter valid resource ID')
         return render_template('FHIR_query.html', form=form)
 
 

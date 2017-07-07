@@ -1,6 +1,7 @@
 import urllib
 from urllib import parse
 import requests
+import xml.etree.ElementTree as ET
 
 fhir_patient = 'http://fhirtest.uhn.ca/baseDstu3/Patient?'
 fhir_condition = 'http://fhirtest.uhn.ca/baseDstu3/Condition?'
@@ -61,6 +62,9 @@ class FHIRQueryByID:
     def getPatientCondition(self):
         for item in self.getConditionData():
             print(str(item[0]))
+
+
+
 
 
 # x = FHIRQueryByID('157002')
